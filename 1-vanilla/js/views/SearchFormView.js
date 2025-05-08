@@ -22,11 +22,15 @@ export default class SearchFormView extends View {
     on(this.inputElement, "keyup", () => this.handleKeyup());
     //.bind(this) => 클래스 메서드는 this가 엉뚱하게 바인딩될 수 있기 때문에, 안전하게 현재 인스턴스를 바인딩한다. handleKeyup() 안에서의 this가 항상 SearchFormView 인스턴스를 가리키도록 보장 this=searchformview
     on(this.element, "submit", (event) => this.handleSubmit(event));
+    on(this.resetElement, "click", () => this.handleReset());
   }
 
   handleKeyup() {
     const { value } = this.inputElement;
     this.showResetButton(value.length > 0);
+		if(value.length <= 0){
+			this.handleReset();
+		}
   }
 
   handleSubmit(event) {
@@ -35,5 +39,10 @@ export default class SearchFormView extends View {
 
     const { value } = this.inputElement;
     this.emit("@submit", { value }); //"@submit" 커스텀 이벤트 생성
+  }
+
+	handleReset() {
+		console.log(tag, "handleReset");
+		this.emit("@reset")
   }
 }
