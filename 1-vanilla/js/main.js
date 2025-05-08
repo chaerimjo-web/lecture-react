@@ -5,11 +5,15 @@ import SearchFormView from "./views/SearchFormView.js";
 
 document.addEventListener("DOMContentLoaded", main);
 
+const tag = "[main]";
+
 function main() {
+  console.log(tag);
+
   const store = new Store(storage);
 
   const views = {
-    searchFormView: new SearchFormView()
+    searchFormView: new SearchFormView(),
   };
 
   new Controller(store, views);
