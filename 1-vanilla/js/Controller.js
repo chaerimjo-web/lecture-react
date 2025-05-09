@@ -8,7 +8,7 @@ export default class Controller {
     this.searchFormView = searchFormView;
     this.searchResultView = searchResultView; 
 
-    this.subscribeViewEvents();
+    this.subscribeViewEvents(); 
   }
   subscribeViewEvents() {
     this.searchFormView
