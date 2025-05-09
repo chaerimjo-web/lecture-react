@@ -25,7 +25,7 @@ class Template {
 
   getList(data = []) {
     return `
-			<ul class="Result">
+			<ul class="result">
 				${data.map(this._getItem).join("")}
 			</ul>
 		`;
@@ -33,8 +33,10 @@ class Template {
 
   _getItem({ imageUrl, name }) {
     return `
-			<li src="${imageUrl}" alt="${name}"></li>
-			<p>${name}</p>
+			<li>
+        <img src="${imageUrl}" alt="${name}"/>
+        <p>${name}</p>
+      </li>
 		`;
   }
 }
