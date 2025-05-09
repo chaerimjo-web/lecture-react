@@ -6,9 +6,9 @@ export default class Controller {
 
     this.store = store;
     this.searchFormView = searchFormView;
-    this.searchResultView = searchResultView; 
+    this.searchResultView = searchResultView;
 
-    this.subscribeViewEvents(); 
+    this.subscribeViewEvents();
   }
   subscribeViewEvents() {
     this.searchFormView
@@ -22,6 +22,9 @@ export default class Controller {
   }
   reset() {
     console.log(tag, "reset");
+    this.store.searchKeword = "";
+    this.store.searchResult = [];
+    this.render();
   }
   render() {
     if (this.store.searchKeword.length > 0) {
