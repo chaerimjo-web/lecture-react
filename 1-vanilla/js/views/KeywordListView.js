@@ -35,7 +35,7 @@ class Template {
     return `
 			<li data-keyword=${keyword}>
 				<span class="number">${id}<span>
-				${keyword}
+				<span class="keyword">${keyword}<span>
 			</li>
 		`;
   }
