@@ -32,11 +32,13 @@ export default class Controller {
   }
   render() {
     if (this.store.searchKeword.length > 0) {
-      this.tabView.hide();
-      this.searchResultView.show(this.store.searchResult);
-      return;
+      return this.renderSearchResult();
     }
-    this.tabView.show(); //처음 서치키워드 값이 없기 때문에 tabview가 보이고 searchResultView가 숨겨진다.
+    this.tabView.show();
     this.searchResultView.hide();
+  }
+  renderSearchResult() {
+    this.tabView.hide();
+    this.searchResultView.show(this.store.searchResult);
   }
 }
