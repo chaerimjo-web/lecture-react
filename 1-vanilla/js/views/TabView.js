@@ -1,5 +1,5 @@
 import View from "./View.js";
-import { qs, qsAll } from "../helpers.js";
+import { qs, qsAll, delegate } from "../helpers.js";
 
 export const TabType = {
   KEYWORD: "KEYWORD",
@@ -16,6 +16,16 @@ export default class TabView extends View {
     super(qs("#tab-view"));
 
     this.template = new Template();
+    this.bindEvents();
+  }
+  bindEvents() {
+    delegate(this.element, "click", "li", (event) => this.handleClick(event));
+  }
+
+  handleClick() {
+    // console.log(event.target);
+		const value = event.target.dataset.tab;
+    this.emit("@change", { value });
   }
 
   show(selectedTab) {
@@ -29,13 +39,13 @@ export default class TabView extends View {
 class Template {
   getTabList() {
     return `
-				<ul class="tabs">
-					${Object.values(TabType)
-            .map((tabType) => ({ tabType, tabLable: TabLable[tabType] }))
-            .map(this._getTab)
-            .join("")}
-				</ul>
-			`;
+			<ul class="tabs">
+				${Object.values(TabType)
+          .map((tabType) => ({ tabType, tabLable: TabLable[tabType] }))
+          .map(this._getTab)
+          .join("")}
+			</ul>
+		`;
   }
   _getTab({ tabType, tabLable }) {
     return `

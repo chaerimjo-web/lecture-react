@@ -14,22 +14,33 @@ export default class Controller {
     this.subscribeViewEvents();
     this.render();
   }
+  
   subscribeViewEvents() {
     this.searchFormView
       .on("@submit", (event) => this.search(event.detail.value))
       .on("@reset", () => this.reset());
+    this.tabView.on("@change", (event) => this.changeTab(event.detail.value));
   }
+
+  changeTab(tab) {
+    console.log(tab);
+    this.store.selectedTab = tab;
+    this.render();
+  }
+
   search(searchKeword) {
     // console.log(tag, keyword);
     this.store.search(searchKeword);
     this.render();
   }
+
   reset() {
     console.log(tag, "reset");
     this.store.searchKeword = "";
     this.store.searchResult = [];
     this.render();
   }
+
   render() {
     if (this.store.searchKeword.length > 0) {
       return this.renderSearchResult();
@@ -37,6 +48,7 @@ export default class Controller {
     this.tabView.show(this.store.selectedTab);
     this.searchResultView.hide();
   }
+
   renderSearchResult() {
     this.tabView.hide();
     this.searchResultView.show(this.store.searchResult);
