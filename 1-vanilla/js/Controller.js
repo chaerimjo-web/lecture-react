@@ -1,4 +1,4 @@
-import TabView from "./views/TabView.js";
+import { TabType } from "./views/TabView.js";
 
 const tag = "[Controller]";
 
@@ -34,7 +34,7 @@ export default class Controller {
     if (this.store.searchKeword.length > 0) {
       return this.renderSearchResult();
     }
-    this.tabView.show();
+    this.tabView.show(this.store.selectedTab);
     this.searchResultView.hide();
   }
   renderSearchResult() {
