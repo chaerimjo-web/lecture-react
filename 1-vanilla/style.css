@@ -33,7 +33,7 @@ input[type=text] {
   width: 100%;
   margin: 15px 0 15px 0;
   padding: 10px 15px;
-  font-size: 14px;
+  font-size: 18px;
   line-height: 1.5;
   border: 1px solid #cccccc;
 
@@ -41,6 +41,7 @@ input[type=text] {
 
 .content {
   border: 1px solid #ccc;
+  margin: 0 15px;
 }
 
 ul.tabs {
@@ -74,6 +75,8 @@ ul.tabs {
   padding: 15px;
   border-bottom: 1px solid #ccc;
   position: relative;
+  font-size: 20px;
+  font-weight: 500;
 }
 
 .list li:last-child {
@@ -81,8 +84,11 @@ ul.tabs {
 }
 
 .list li .number {
-  margin-right: 15px;
   color: #ccc;
+}
+.list li .keyword {
+  color: black;
+  margin-left: 25px;
 }
 
 .list li .date {
