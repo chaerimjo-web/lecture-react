@@ -37,9 +37,9 @@ export default class Controller {
     this.keywordListView.on("@click", (event) =>
       this.search(event.detail.value)
     );
-    this.historyListView.on("@click", (event) =>
-      this.search(event.detail.value)
-    );
+    this.historyListView  
+      .on("@click", (event) => this.search(event.detail.value))
+      .on("@remove", (event) => this.removeHistory(event.detail.value));
   }
 
   changeTab(tab) {
@@ -58,6 +58,11 @@ export default class Controller {
     console.log(tag, "reset");
     this.store.searchKeword = "";
     this.store.searchResult = [];
+    this.render();
+  }
+
+  removeHistory(keyword) {
+    this.store.removeHistory(keyword);
     this.render();
   }
 
