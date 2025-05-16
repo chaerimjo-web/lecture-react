@@ -1,0 +1,31 @@
+<!DOCTYPE html>
+<html lang="ko">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Lecture React</title>
+    <link rel="stylesheet" href="./style.css" />
+  </head>
+  <body>
+    <div id="app"></div>
+
+    <script
+      crossorigin
+      src="https://unpkg.com/react@17/umd/react.development.js"
+    ></script>
+
+    <script
+      crossorigin
+      src="https://unpkg.com/react-dom@17/umd/react-dom.development.js"
+    ></script>
+
+    <script src="https://unpkg.com/@babel/standalone/babel.min.js"></script>
+		<!-- standalone / 스크립트 내의 코드를 변환해줌 -->
+
+    <script type="text/babel">
+      const element = React.createElement("h1", null, "Hello World");
+      ReactDOM.render(element, document.querySelector("#app")); 
+			// element를 가상돔으로 만든다. 만든 위치는 app
+    </script>
+  </body>
+</html>
