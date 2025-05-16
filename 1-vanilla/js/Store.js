@@ -31,4 +31,11 @@ export default class Store {
   _sortHistory(history1, history2) {
     return history2.date > history1.date;
   }
+
+  removeHistory(keyword) {
+    this.storage.historyData = this.storage.historyData.filter(
+      (history) => history.keyword !== keyword
+      //검색 이력 중 특정 keyword와 일치하는 항목을 제거하는 기능
+    );
+  }
 }
