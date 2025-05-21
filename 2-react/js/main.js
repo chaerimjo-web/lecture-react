@@ -6,17 +6,21 @@ class App extends React.Component {
     };
   }
 
-  handleChangeInput(event) {
-    const searchKeyword = event.target.value;
-    // this.forceUpdate();
-    this.setState({
-      searchKeyword,
-    });
-  }
-
   handleSubmit(event) {
     event.preventDefault();
     console.log(this.state.searchKeyword);
+    this.setState({ searchKeyword: "" });
+  }
+
+  handleReset() {
+    this.setState({ searchKeyword: "" });
+    console.log("TODO: handleResset");
+  }
+
+  handleChangeInput(event) {
+    const searchKeyword = event.target.value;
+    if (searchKeyword.length === 0) return this.handleReset(); 
+    this.setState({ searchKeyword });
   }
 
   render() {
@@ -34,6 +38,7 @@ class App extends React.Component {
           <form
             id="search-form-view"
             onSubmit={(event) => this.handleSubmit(event)}
+            onReset={() => this.handleReset()}
           >
             <input
               type="text"
