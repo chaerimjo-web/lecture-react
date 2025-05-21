@@ -7,14 +7,19 @@ class App extends React.Component {
   }
 
   handleChangeInput(event) {
-    // this.state.searchKeyword = event.target.value;
+    const searchKeyword = event.target.value;
     // this.forceUpdate();
     this.setState({
-      searchKeyword: event.target.value,
+      searchKeyword,
     });
   }
 
   render() {
+    // let resetButton = null; //엘리먼트 변수를 사용하는 방식
+    // if (this.state.searchKeyword.length > 0) {
+    //   resetButton = <button className="btn-reset" type="reset"></button>;
+    // }
+
     return (
       <>
         <header>
@@ -29,7 +34,9 @@ class App extends React.Component {
               value={this.state.searchKeyword}
               onChange={(event) => this.handleChangeInput(event)}
             />
-            <button className="btn-reset" type="reset"></button>
+            {this.state.searchKeyword.length > 0 && (
+              <button className="btn-reset" type="reset"></button>
+            )}
           </form>
         </div>
       </>
