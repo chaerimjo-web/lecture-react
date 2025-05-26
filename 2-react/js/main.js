@@ -61,7 +61,7 @@ class App extends React.Component {
           </form>
           <div className="content">
             {this.state.searchResult.length > 0 ? (
-              <ul>
+              <ul className="result">
                 {this.state.searchResult.map((item) => {
                   return (
                     <li>
