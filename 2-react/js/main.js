@@ -1,15 +1,23 @@
+import store from "./js/store.js";
+
 class App extends React.Component {
   constructor() {
     super();
     this.state = {
       searchKeyword: "",
+      searchResult: [],
     };
   }
 
   handleSubmit(event) {
     event.preventDefault();
-    console.log(this.state.searchKeyword);
+    this.search(this.state.searchKeyword);
     this.setState({ searchKeyword: "" });
+  }
+
+  search(searchKeyword) {
+    const searchResult = store.search(searchKeyword);
+    this.setState({ searchResult });
   }
 
   handleReset() {
@@ -19,7 +27,7 @@ class App extends React.Component {
 
   handleChangeInput(event) {
     const searchKeyword = event.target.value;
-    if (searchKeyword.length === 0) return this.handleReset(); 
+    if (searchKeyword.length === 0) return this.handleReset();
     this.setState({ searchKeyword });
   }
 
@@ -51,6 +59,22 @@ class App extends React.Component {
               <button className="btn-reset" type="reset"></button>
             )}
           </form>
+          <div className="content">
+            {this.state.searchResult.length > 0 ? (
+              <ul className="result">
+                {this.state.searchResult.map((item) => {
+                  return (
+                    <li>
+                      <img src={item.imageUrl} alt={item.name} />
+                      <p>{item.name}</p>
+                    </li>
+                  );
+                })}
+              </ul>
+            ) : (
+              <div className="empty-box">검색 결과가 없습니다.</div>
+            )}
+          </div>
         </div>
       </>
     );
