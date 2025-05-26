@@ -17,6 +17,7 @@ class App extends React.Component {
       searchKeyword: "",
       searchResult: [],
       submitted: false,
+      selectedTab: TabType.KEYWORD,
     };
   }
 
@@ -40,6 +41,8 @@ class App extends React.Component {
     if (searchKeyword.length <= 0) return this.handleReset();
     this.setState({ searchKeyword });
   }
+
+  handleClick() {}
 
   render() {
     const searchForm = (
@@ -78,11 +81,23 @@ class App extends React.Component {
       );
 
     const tabs = (
-      <ul className="tabs">
-        {Object.values(TabType).map((tapType) => {
-          return <li key={tapType}>{TabLable[tapType]}</li>;
-        })}
-      </ul>
+      <>
+        <ul className="tabs">
+          {Object.values(TabType).map((tapType) => {
+            return (
+              <li
+                className={this.state.selectedTab === tapType ? "active" : ""}
+                onClick={() => this.setState({ selectedTab: tapType })}
+                key={tapType}
+              >
+                {TabLable[tapType]}
+              </li>
+            );
+          })}
+        </ul>
+        {this.state.selectedTab === TabType.KEYWORD && <>추천 검색어</>}
+        {this.state.selectedTab === TabType.HISTORY && <>최근 검색어</>}
+      </>
     );
 
     return (
