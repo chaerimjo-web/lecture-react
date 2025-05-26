@@ -10,11 +10,9 @@ class Store {
     this.storage = storage;
   }
   search(keyword) {
-    this.searchKeword = keyword;
-    this.searchResult = this.storage.productData.filter((product) =>
+    return this.searchResult = this.storage.productData.filter((product) =>
       product.name.includes(keyword)
     );
-    this.addHistory(keyword);
   }
 
   getKeywordList() {
