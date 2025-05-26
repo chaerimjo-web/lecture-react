@@ -13,7 +13,7 @@ class App extends React.Component {
   handleSubmit(event) {
     event.preventDefault();
     this.search(this.state.searchKeyword);
-    this.setState({ searchKeyword: "", submitted: true });
+    this.setState({ submitted: true });
   }
 
   search(searchKeyword) {
@@ -22,13 +22,12 @@ class App extends React.Component {
   }
 
   handleReset() {
-    this.setState({ searchKeyword: "" });
-    console.log("TODO: handleResset");
+    this.setState({ searchKeyword: "", submitted: false });
   }
 
   handleChangeInput(event) {
     const searchKeyword = event.target.value;
-    if (searchKeyword.length === 0) return this.handleReset();
+    if (searchKeyword.length <= 0) return this.handleReset();
     this.setState({ searchKeyword });
   }
 
