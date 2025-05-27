@@ -1,3 +1,4 @@
+import { formatRelativeDate } from "./js/helpers.js";
 import store from "./js/store.js";
 
 const TabType = {
@@ -19,12 +20,14 @@ class App extends React.Component {
       submitted: false,
       selectedTab: TabType.KEYWORD,
       keywordList: [],
+      historyList: [],
     };
   }
 
   componentDidMount() {
     const keywordList = store.getKeywordList();
-    this.setState({ keywordList });
+    const historyList = store.getHistoryList();
+    this.setState({ keywordList, historyList });
   }
 
   handleSubmit(event) {
@@ -35,7 +38,7 @@ class App extends React.Component {
 
   search(searchKeyword) {
     const searchResult = store.search(searchKeyword);
-    this.setState({ searchResult });
+    this.setState({ searchResult, submitted: true, searchKeyword });
   }
 
   handleReset() {
@@ -86,16 +89,30 @@ class App extends React.Component {
 
     const keywordList = (
       <ul className="list">
-        {this.state.keywordList.map((item, index) => {
+        {this.state.keywordList.map(({ id, keyword }, index) => {
           return (
-            <li key={item.id}>
+            <li key={id} onClick={() => this.search(keyword)}>
               <span className="number">{index + 1}</span>
-              <span className="keyword">{item.keyword}</span>
+              <span className="keyword">{keyword}</span>
             </li>
           );
         })}
       </ul>
     );
+
+    const historyList = (
+      <ul className="list">
+        {this.state.historyList.map(({id, keyword, date}) => {
+          return (
+            <li key={id} onClick={() => this.search(keyword)} >
+              <span>{keyword}</span>
+              <span className="date">{formatRelativeDate(date)}</span>
+              <button className="btn-remove"></button>
+            </li>
+          )
+        })}
+      </ul>
+    )
 
     const tabs = (
       <>
@@ -113,7 +130,7 @@ class App extends React.Component {
           })}
         </ul>
         {this.state.selectedTab === TabType.KEYWORD && keywordList}
-        {this.state.selectedTab === TabType.HISTORY && <>최근 검색어</>}
+        {this.state.selectedTab === TabType.HISTORY && historyList}
       </>
     );
 
