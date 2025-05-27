@@ -51,6 +51,14 @@ class App extends React.Component {
     this.setState({ searchKeyword });
   }
 
+  handleClickRemoveHistory(event, keyword) {
+    event.stopPropagation();
+    store.removeHistory(keyword);
+
+    const historyList = store.getHistoryList();
+    this.setState({ historyList });
+  }
+
   render() {
     const searchForm = (
       <form
@@ -102,17 +110,22 @@ class App extends React.Component {
 
     const historyList = (
       <ul className="list">
-        {this.state.historyList.map(({id, keyword, date}) => {
+        {this.state.historyList.map(({ id, keyword, date }) => {
           return (
-            <li key={id} onClick={() => this.search(keyword)} >
+            <li key={id} onClick={() => this.search(keyword)}>
               <span>{keyword}</span>
               <span className="date">{formatRelativeDate(date)}</span>
-              <button className="btn-remove"></button>
+              <button
+                className="btn-remove"
+                onClick={(event) =>
+                  this.handleClickRemoveHistory(event, keyword)
+                }
+              ></button>
             </li>
-          )
+          );
         })}
       </ul>
-    )
+    );
 
     const tabs = (
       <>
