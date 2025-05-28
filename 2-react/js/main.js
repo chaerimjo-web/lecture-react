@@ -40,9 +40,9 @@ class App extends React.Component {
     const searchResult = store.search(searchKeyword);
     const historyList = store.getHistoryList();
 
-    this.setState({ 
-      searchResult, 
-      submitted: true, 
+    this.setState({
+      searchResult,
+      submitted: true,
       searchKeyword,
       historyList,
     });
@@ -89,13 +89,11 @@ class App extends React.Component {
     const searchResult =
       this.state.searchResult.length > 0 ? (
         <ul className="result">
-          {this.state.searchResult.map((item) => {
-            return (
-              <li key={item.id}>
-                <img src={item.imageUrl} alt={item.name} />
-                <p>{item.name}</p>
-              </li>
-            );
+          {this.state.searchResult.map(({ id, imageUrl, name }) => {
+            <li key={id}>
+              <img src={imageUrl} alt={name} />
+              <p>{name}</p>
+            </li>;
           })}
         </ul>
       ) : (
