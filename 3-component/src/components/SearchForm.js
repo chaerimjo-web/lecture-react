@@ -1,52 +1,31 @@
 import React from "react";
 
-export default class SearchForm extends React.Component {
-  constructor() {
-    super();
-
-    this.state = {
-      searchKeyword: "",
-    };
-  }
-
-  handleSubmit(event) {
+const SearchForm = ({ onSubmit, onChange, onReset, value }) => {
+  const handleSubmit = (event) => {
     event.preventDefault();
-    this.props.onSubmit(this.state.searchKeyword); //프롭스의 콜백함수를 호출한다.
-  }
+    onSubmit();
+  };
 
-  handleChangeInput(event) {
-    const searchKeyword = event.target.value;
+  const handleChangeInput = (event) => {
+    onChange(event.target.value);
+  };
 
-    if (searchKeyword.length <= 0) {
-      this.handleReset();
-    }
+  const handleReset = () => {
+    onReset();
+  };
 
-    this.setState({ searchKeyword });
-  }
+  return (
+    <form onSubmit={handleSubmit} onReset={handleReset}>
+      <input
+        type="text"
+        placeholder="검색어를 입력하세요"
+        autoFocus
+        value={value}
+        onChange={handleChangeInput}
+      />
+      {value.length > 0 && <button className="btn-reset" type="reset"></button>}
+    </form>
+  );
+};
 
-  handleReset() {
-    this.props.onReset();
-  }
-
-  render() {
-    const searchKeyword = this.state;
-
-    return (
-      <form
-        onSubmit={(event) => this.handleSubmit(event)}
-        onReset={() => this.handleReset()}
-      >
-        <input
-          type="text"
-          placeholder="검색어를 입력하세요"
-          autoFocus
-          value={this.state.searchKeyword}
-          onChange={(event) => this.handleChangeInput(event)}
-        />
-        {this.state.searchKeyword.length > 0 && (
-          <button className="btn-reset" type="reset"></button>
-        )}
-      </form>
-    );
-  }
-}
+export default SearchForm;
