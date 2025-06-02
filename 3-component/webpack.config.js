@@ -6,9 +6,18 @@ module.exports = {
   entry: {
     main: "./src/main.js",
   },
+  output: {
+    filename: "[name].js",
+    path: path.resolve(__dirname, "dist"),
+  },
   devtool: "inline-source-map",
   devServer: {
-    contentBase: "./",
+    static: {
+      directory: path.resolve(__dirname, "./"),
+    },
+    compress: true,
+    port: 9000,
+    open: true,
   },
   module: {
     rules: [
@@ -18,6 +27,10 @@ module.exports = {
         use: {
           loader: "babel-loader",
         },
+      },
+      {
+        test: /\.css$/i,
+        use: ["style-loader", "css-loader"],
       },
     ],
   },
