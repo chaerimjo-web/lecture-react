@@ -42,14 +42,19 @@ class App extends React.Component {
 
     this.setState({
       searchResult,
-      // submitted: true,
+      submitted: true,
       searchKeyword,
       historyList,
     });
   }
 
   handleReset() {
-    this.setState({ searchKeyword: "", submitted: false });
+    this.setState({
+      searchKeyword: "",
+      submitted: false,
+      searchResult: [],
+      submitted: false,
+    });
   }
 
   handleChangeInput(event) {
@@ -105,19 +110,10 @@ class App extends React.Component {
     const keywordList = (
       <ul className="list">
         {this.state.keywordList.map(({ id, keyword }, index) => {
-          return (
-            <li
-              key={id}
-              onClick={() =>
-                this.setState({ searchKeyword: keyword }, () => {
-                  this.search(keyword);
-                })
-              }
-            >
-              <span className="number">{index + 1}</span>
-              <span className="keyword">{keyword}</span>
-            </li>
-          );
+          <li key={id} onClick={() => this.search(keyword)}>
+            <span className="number">{index + 1}</span>
+            <span className="keyword">{keyword}</span>
+          </li>;
         })}
       </ul>
     );
@@ -151,7 +147,6 @@ class App extends React.Component {
                 onClick={() =>
                   this.setState({
                     selectedTab: tapType,
-                    searchKeyword: keyword,
                     submitted: false,
                   })
                 }
