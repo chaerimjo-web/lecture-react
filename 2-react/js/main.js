@@ -1,5 +1,5 @@
-import { formatRelativeDate } from "./js/helpers.js";
-import store from "./js/store.js";
+import { formatRelativeDate } from "./helpers.js";
+import store from "./store.js";
 
 const TabType = {
   KEYWORD: "KEYWORD",
@@ -42,7 +42,7 @@ class App extends React.Component {
 
     this.setState({
       searchResult,
-      submitted: true,
+      // submitted: true,
       searchKeyword,
       historyList,
     });
@@ -90,10 +90,12 @@ class App extends React.Component {
       this.state.searchResult.length > 0 ? (
         <ul className="result">
           {this.state.searchResult.map(({ id, imageUrl, name }) => {
-            <li key={id}>
-              <img src={imageUrl} alt={name} />
-              <p>{name}</p>
-            </li>;
+            return (
+              <li key={id}>
+                <img src={imageUrl} alt={name} />
+                <p>{name}</p>
+              </li>
+            );
           })}
         </ul>
       ) : (
@@ -104,7 +106,14 @@ class App extends React.Component {
       <ul className="list">
         {this.state.keywordList.map(({ id, keyword }, index) => {
           return (
-            <li key={id} onClick={() => this.search(keyword)}>
+            <li
+              key={id}
+              onClick={() =>
+                this.setState({ searchKeyword: keyword }, () => {
+                  this.search(keyword);
+                })
+              }
+            >
               <span className="number">{index + 1}</span>
               <span className="keyword">{keyword}</span>
             </li>
@@ -139,7 +148,13 @@ class App extends React.Component {
             return (
               <li
                 className={this.state.selectedTab === tapType ? "active" : ""}
-                onClick={() => this.setState({ selectedTab: tapType })}
+                onClick={() =>
+                  this.setState({
+                    selectedTab: tapType,
+                    searchKeyword: keyword,
+                    submitted: false,
+                  })
+                }
                 key={tapType}
               >
                 {TabLable[tapType]}
