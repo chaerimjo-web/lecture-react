@@ -14,6 +14,8 @@ export default class List extends React.Component {
   }
 
   render() {
+    const { onClick } = this.props;
+    const { data } = this.state;
     return (
       <ul className="list">
         {this.state.data.map((item, index) => {
