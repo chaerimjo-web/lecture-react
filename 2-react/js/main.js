@@ -53,7 +53,6 @@ class App extends React.Component {
       searchKeyword: "",
       submitted: false,
       searchResult: [],
-      submitted: false,
     });
   }
 
